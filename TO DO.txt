@@ -1,0 +1,8 @@
+IMPORTANT
+. booking collision logic
+. visual availability in 'timelapse' on room selection
+. fix booking info on save (lists objects)
+
+CAN WAIT
+. turn panels into tabs and collapse header menu when on xs viewport
+. tweak mapster auto-resize values (buggy when enlarging)

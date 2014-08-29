@@ -1,0 +1,223 @@
+/**********[ TAGS ]**********/
+
+*{
+  font-family: verdana;
+}
+
+body{
+  margin: 0;
+  background: #222222;
+}
+
+header{
+  height: 50px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+header,footer{
+  background: green;
+}
+
+input, select, #room-info{
+  height: 2em;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 0 5px 0;
+  padding: 0 5px 0 5px;
+}
+
+input{
+  width: 100%;
+}
+
+tbody{
+  position: relative;
+}
+
+p{
+  font-size: 12px;
+}
+
+
+
+/**********[ CLASSES ]**********/
+
+.centered{
+  position: relative;
+  display: flex;
+  max-width: 1024px;
+  margin: auto;
+}
+
+.btn{
+  display: inline;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.2em;
+  background: yellowgreen;
+  border-radius: 5px;
+  color: black;
+}
+
+.btn-edit,.btn-delete{
+  width: 20px;
+  background: green;
+}
+
+.col-xs-6, .col-xs-12{
+  padding-right: 1%;
+  padding-left: 1%;
+}
+
+.panel{
+  margin-bottom: 10px;
+  background-color: green;
+  border-color: yellowgreen;
+}
+
+.panel-heading{
+  padding: 1% 5%;
+}
+
+.panel-body{
+  padding: 2%;
+}
+
+.panel-default>.panel-heading{
+  background-color: yellowgreen;
+  border:none;
+}
+
+.modal-content{
+  background: green;
+  border-color: yellowgreen;
+}
+
+.modal-header{
+  background: yellowgreen;
+  border-radius: 5px 5px 0 0;
+  border: none;
+  padding: 1%;
+}
+
+.modal-body{
+  padding: 0;
+}
+
+.sel{
+  background: yellowgreen;
+}
+
+.options{
+  display: inline-block;
+  margin: auto;
+}
+
+
+
+/**********[ IDS ]**********/
+
+#sidebar{
+  padding: 0;
+}
+
+#main{
+
+}
+
+#title{
+  position: absolute;
+  right: 0;
+}
+
+#title>h1{
+  display: inline;
+  font-size: 2.2em;
+}
+
+#title>small{
+  position: relative;
+  top: -10px;
+  left: 88px;
+}
+
+#btnpad{
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+#btn-ok,#btn-no{
+  width: 45%;
+}
+
+#floor{
+  width: 50px;
+}
+
+#date{
+  max-width: 150px;
+  width: 100%;
+}
+
+#from,#to{
+  max-width: 100px;
+  width: 100%;
+}
+
+#room-info{
+  height: 4em;
+  margin-bottom: 5%;
+}
+
+#timelapse{
+  display: flex;
+  height: 20%;
+  padding: 1%;
+  border-radius: 5px;
+  background: yellowgreen;
+}
+
+t{
+  flex: 1;
+  font-size: 75%;
+  font-weight: bold;
+  text-align: center;
+}
+
+#img-margin{
+  margin: 1% 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#txt-main{
+  padding: 15%;
+  font-size: 3em;
+  text-align: center;
+}
+
+#logos{
+  position: absolute;
+  right: 0;
+  background: #222222;
+  padding: 0 10px;
+}
+
+#glob{
+  position: absolute;
+  left: 0;
+  height: 50px;
+}
+
+#txt-footer{
+  margin: auto;
+  padding: 10px;
+  font-size: 1.3em;
+}
+
+#msg{
+  height: 1em;
+  margin-bottom: 10px;
+}
