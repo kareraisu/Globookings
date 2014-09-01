@@ -192,12 +192,6 @@ t{
   overflow: hidden;
 }
 
-#txt-main{
-  padding: 15%;
-  font-size: 3em;
-  text-align: center;
-}
-
 #logos{
   position: absolute;
   right: 0;
@@ -211,13 +205,26 @@ t{
   height: 50px;
 }
 
+#txt-main{
+  padding: 15%;
+  font-size: 3em;
+  text-align: center;
+}
+
 #txt-footer{
   margin: auto;
   padding: 10px;
   font-size: 1.3em;
 }
 
-#msg{
-  height: 1em;
-  margin-bottom: 10px;
+#txt-login{
+  height: 1.5em;
+  font-size: 1.1em;
+}
+
+#txt-btn{
+  height: 1.5em;
+  text-align: center;
+  font-size: 1.1em;
+  margin-top: 10px;
 }

@@ -21,7 +21,7 @@ var ViewFloor = Backbone.View.extend({
     // render floor img if available, else render text msg
     if(this.model.get('img')){
       image.attr('src',this.model.get('img'));
-      text.fadeOut(300, function(){
+      txt_main.fadeOut(300, function(){
         timelapse.fadeIn(300);
         image.fadeIn(300, function(){
           // wait till the image is fully displayed to bind mapster
@@ -88,9 +88,9 @@ var ViewBook = Backbone.View.extend({
   },
 
   render: function(){
-    // _.template takes a (html) string template and
-    // a json object as context (for binding vars in the html)
-    var render = _.template(this.template, this.model.toJSON()); 
+    // _.template takes a (html) string template and returns a function
+    // that takes a json object as context (for binding vars in the html)
+    var render = _.template(this.template)(this.model.toJSON()); 
     this.$el.html(render);
     return this;
   },
@@ -118,7 +118,6 @@ var ViewBookings = Backbone.View.extend({
   render: function(){
     this.$el.empty();
     this.collection.each(this.renderBooking, this); // 2nd param is 'this' context... I think
-    //this.$el.append(this.el); // I've given up trying to understand this, but it works
     return this;
   },
 

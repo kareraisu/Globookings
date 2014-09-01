@@ -14,10 +14,10 @@ bookings.fetch(); // fetch after view creation, or else view is not updated
 var id = false;
 var num = false;
 var site;
-var site_n = 0;
+var site_n;
 var floor;
 var room;
-var room_n = 0;
+var room_n;
 
 
 // DOM elements
@@ -26,9 +26,15 @@ var sel_floor = $('#floor');
 var timelapse = $('#timelapse');
 var image = $('#img-floor');
 var img = $('#img-margin');
-var text = $('#txt-main');
+var txt_main = $('#txt-main');
 var btn_ok = $('#btn-ok');
 var btn_no = $('#btn-no');
+var txt_btn = $('#txt-btn');
+
+var date = $('#date');
+var from = $('#from');
+var to = $('#to');
+var desc = $('#desc');
 
 
 // mapster options
@@ -49,7 +55,8 @@ var mapoptions = {
   scaleMap: true,
   singleSelect: true,
   onClick: function (e) {
-    room = floor.get('rooms')[e.key];
+    room_n = e.key;
+    room = floor.get('rooms')[room_n];
     $('#room-name').html(room.name);
     $('#room-info').html('Capacity: ' + room.capacity);
   }

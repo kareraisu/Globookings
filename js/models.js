@@ -14,8 +14,8 @@ var Booking = Backbone.Model.extend({
   },
 
   initialize: function(){
-    console.log('booking created');
-    console.log(this.toJSON());
+    // console.log('booking created');
+    // console.log(this.toJSON());
   },
 
   edit: function(){
@@ -25,7 +25,6 @@ var Booking = Backbone.Model.extend({
     site_n = parseInt(this.get('site_n'));
     site = sites[site_n];
     sel_site.val(site_n);
-    
 
     floor = site.floors[parseInt(this.get('floor'))];
     listFloors();
@@ -67,7 +66,7 @@ var User = Backbone.Model.extend({
   },
 
   initialize: function(){
-    console.log('user created');
-    console.log(this.toJSON());
+    // console.log('user created');
+    // console.log(this.toJSON());
   }
 });

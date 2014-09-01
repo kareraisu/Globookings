@@ -3,6 +3,7 @@
 // hidden defaults
 timelapse.hide();
 btn_no.hide();
+txt_btn.fadeTo(0,0);
 
 // render site list
 sel_site.html(_.template($('#tpl-site').html())({list: sites}));
@@ -26,11 +27,11 @@ sel_floor.change(function(){
 
 // on btn click, create booking
 btn_ok.click(function() {
-  if (site && floor && room) {
+  if (site && floor && room && date.val() && from.val() && to.val() && desc.val()) {
     createBooking();
   } else {
-    alert("please complete all fields");
-  }; 
+    flashText(txt_btn,'Please complete all fields');
+  };
 });
 
 // or cancel
@@ -58,19 +59,17 @@ function showText(txt){
   image.mapster('unbind');
   timelapse.fadeOut(300);
   image.fadeOut(300, function(){
-    text.fadeOut(300, function(){
-      text.html(txt);
-      text.fadeIn(300);
+    txt_main.fadeOut(300, function(){
+      txt_main.html(txt).fadeIn(300);
     });
   });
-;}
+};
 
+function flashText(el, txt){
+  el.finish().html(txt).fadeTo(300, 1).delay(2000).fadeTo('slow', 0);
+};
 
 function createBooking(){
-  var date = $('#date').val();
-  var from = $('#from').val();
-  var to = $('#to').val();
-  var desc = $('#desc').val();
 
   var current = new Booking();
   // keep same id if editing a booking
@@ -85,21 +84,21 @@ function createBooking(){
   };
 
   current.set({
-    site: site.name,
+    site: site.name, // plain object, not a backbone model
     site_n: sel_site.val(),
     floor: sel_floor.val(),
     room: room.name, // plain object, not a backbone model
-    room_n: 0,
-    date: date,
-    from: from,
-    to: to,
-    desc: desc,
+    room_n: room_n,
+    date: date.val(),
+    from: from.val(),
+    to: to.val(),
+    desc: desc.val(),
     user: user.get('mail'),
   });
 
   bookings.add(current);
   current.save();
-
+  flashText(txt_btn,'Booking added');
   cancel();
 };
 
