@@ -12,7 +12,6 @@ bookings.fetch(); // fetch after view creation, or else view is not updated
 
 // booking attributes
 var id = false;
-var num = false;
 var site;
 var site_n;
 var floor;
@@ -25,7 +24,6 @@ var sel_site = $('#site');
 var sel_floor = $('#floor');
 var timelapse = $('#timelapse');
 var image = $('#img-floor');
-var img = $('#img-margin');
 var txt_main = $('#txt-main');
 var btn_ok = $('#btn-ok');
 var btn_no = $('#btn-no');
@@ -54,11 +52,18 @@ var mapoptions = {
   // important stuff
   scaleMap: true,
   singleSelect: true,
-  onClick: function (e) {
-    room_n = e.key;
-    room = floor.get('rooms')[room_n];
-    $('#room-name').html(room.name);
-    $('#room-info').html('Capacity: ' + room.capacity);
+  onStateChange: function (e) {
+    if (e.state == 'select') {
+      if (e.selected) {
+        room_n = e.key; // key is a string so room_n is too 
+        room = floor.get('rooms')[parseInt(room_n)];
+        $('#room-name').html(room.name);
+        $('#room-info').html('Capacity: ' + room.capacity + '<br>' + room.extra);
+        renderTime();
+      } else {
+        timelapse.children().removeClass('booked');
+      };
+    };
   }
 };
 

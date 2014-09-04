@@ -37,7 +37,6 @@ var ViewFloor = Backbone.View.extend({
 });
 
 
-
 var ViewOptions = Backbone.View.extend({  
   tagName: 'div',
   className: 'options',

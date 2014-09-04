@@ -5,6 +5,7 @@
 }
 
 body{
+  -webkit-user-select: none;
   margin: 0;
   background: #222222;
 }
@@ -105,15 +106,18 @@ p{
   padding: 0;
 }
 
-.sel{
-  background: yellowgreen;
-}
-
 .options{
   display: inline-block;
   margin: auto;
 }
 
+.sel, .booking{
+  background: yellowgreen;
+}
+
+.booked{
+  background: grey;
+}
 
 
 /**********[ IDS ]**********/
@@ -174,13 +178,14 @@ p{
 #timelapse{
   display: flex;
   height: 20%;
-  padding: 1%;
   border-radius: 5px;
-  background: yellowgreen;
+  background: green;
+  overflow: hidden;
 }
 
-t{
+#timelapse div{
   flex: 1;
+  padding: 1%;
   font-size: 75%;
   font-weight: bold;
   text-align: center;
@@ -228,3 +233,20 @@ t{
   font-size: 1.1em;
   margin-top: 10px;
 }
+
+#banners div{
+  position: relative;
+  width: 100%;
+  margin: 10px;
+  float: right;
+}
+
+#banners div:hover{
+  width: 105%;
+  height: 105%;
+}
+
+#banners img{
+  width: 100%;
+}
+

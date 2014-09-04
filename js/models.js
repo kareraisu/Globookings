@@ -1,6 +1,5 @@
 var Booking = Backbone.Model.extend({
   defaults: {
-    num: 0,
     site: 'site',
     site_n: 0,
     floor: 0,
@@ -20,8 +19,7 @@ var Booking = Backbone.Model.extend({
 
   edit: function(){
     id = this.get('id');
-    num = parseInt(this.get('num'));
-
+    
     site_n = parseInt(this.get('site_n'));
     site = sites[site_n];
     sel_site.val(site_n);
@@ -34,17 +32,16 @@ var Booking = Backbone.Model.extend({
 
     room_n = parseInt(this.get('room_n'));
     room = floor.get('rooms')[room_n];
+    // select room via mapster (will trigger info display)
+    $('area[data-mapster-key=' + room_n + ']').mapster('select');
 
-    $('#room-name').html(room.name);
-    $('#room-info').html('Capacity: ' + room.capacity + '<br>' +
-                         'Extra: ' + room.extra);
     $('#date').val(this.get('date'));
     $('#from').val(this.get('from'));
     $('#to').val(this.get('to'));
     $('#desc').val(this.get('desc'));
 
-    btn_no.show(300);
     btn_ok.html('UPDATE');
+    btn_no.show(300);
   },
 
 });

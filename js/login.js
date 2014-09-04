@@ -6,6 +6,7 @@ var msg = $('#txt-login');
 $('#sidebar').hide();
 $('#main').hide();
 $('#logged').hide();
+$('#sites').hide();
 msg.fadeTo(0,0);
 
 
@@ -67,10 +68,19 @@ function login() {
 
 function start() {
 	$('#login').fadeOut('slow', function() {
-		$('#logged').fadeIn('slow');
-		$('#sidebar').fadeIn('slow');
-		$('#main').fadeIn('slow');
-		msg.empty();
+		$('#sites').fadeIn('slow');
+		listSites();
+
+		$('.site').click(function(){
+		 	sel_site.val($(this).index()).trigger('change'); // get site number
+
+			$('#sites').fadeOut('slow', function(){
+				$('#logged').fadeIn('slow');
+				$('#sidebar').fadeIn('slow');
+				$('#main').fadeIn('slow');
+				msg.empty();
+			});
+		});
 	});
 };
 
