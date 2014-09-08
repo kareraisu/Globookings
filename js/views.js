@@ -87,9 +87,14 @@ var ViewBook = Backbone.View.extend({
   },
 
   render: function(){
+    // format time values
+    var from = formatTime(parseFloat(this.model.get('from')));
+    var to = formatTime(parseFloat(this.model.get('to')));
+    // create a json object and replace the original time values with the formatted values
+    var data = _.extend(this.model.toJSON(), {from: from, to: to});
     // _.template takes a (html) string template and returns a function
     // that takes a json object as context (for binding vars in the html)
-    var render = _.template(this.template)(this.model.toJSON()); 
+    var render = _.template(this.template)(data);
     this.$el.html(render);
     return this;
   },

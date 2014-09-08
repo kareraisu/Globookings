@@ -8,11 +8,10 @@ txt_btn.fadeTo(0,0);
 // render timelapse
 var set_from = 8;
 var set_to = 20;
-for (var i = set_from; i <= set_to; i++) {
-   timelapse.append('<div>' + i + '</div><div>.</div>');
- };
- timelapse.children().addClass('free');
-
+for (var i = set_from; i < set_to; i++) {
+  timelapse.append('<div>' + i + '</div><div>.</div>');
+};
+timelapse.children().addClass('free');
 
 
 
@@ -33,7 +32,7 @@ sel_floor.change(function(){
 
 // on btn click, create booking
 btn_ok.click(function() {
-  if (site && floor && room && date.val() && from.val() && to.val() && desc.val()) {
+  if (site && floor && room && date.val() && from && to && desc.val()) {
     createBooking();
   } else {
     flashText(txt_btn,'Please complete all fields');
@@ -56,78 +55,119 @@ timelapse.on('mouseup mouseleave', function(event) {
   pressing = false;
 });
 
+timelapse.children().mousedown(function(event) {
+  if ($(this).hasClass('free') || $(this).hasClass('booking')){
+    $('.booking').removeClass('booking').addClass('free');
+    $(this).removeClass('free').addClass('booking');
+    from = ($(this).index() / 2) + set_from;
+    show_from.html(formatTime(from));
+  }
+});
+
+timelapse.children().mouseover(function(event) {
+  if ($(this).hasClass('free') && pressing) {
+    $(this).removeClass('free').addClass('booking');
+  };
+});
+
+timelapse.children().mouseup(function(event) {
+  if ($(this).hasClass('booking')) {
+    flashText(txt_btn, "time updated");
+    to = ($('.booking').last().index() / 2) + set_from +0.5;
+    show_to.html(formatTime(to));
+  };
+});
+
 
 
 /********************[ FUNCTIONS ]********************/
 
 function listSites() {
   sel_site.html(_.template($('#tpl-site').html())({list: sites}));
-};
+}
+
 
 function listFloors() {
   sel_floor.html(_.template($('#tpl-floor').html())({list: site.floors}));
-};
+}
 
 
 function renderFloor() {
   var main = new ViewFloor({
     model: floor
   });
-};
+}
+
+
+function createBooking(){
+
+  var current = new Booking();
+  
+  current.set({
+    site: site.name, // plain object, not a backbone model
+    site_n: sel_site.val(),
+    floor: sel_floor.val(),
+    room: room.name, // plain object, not a backbone model
+    room_n: room_n, // set via mapster or via edit function
+    date: date.val(),
+    from: from,
+    to: to,
+    desc: desc.val(),
+    user: user.get('mail'),
+  });
+
+  // use existing id or else assign new one
+  if (id) {
+    current.set({
+      id: id,
+      collection: bookings,
+    });
+  } else {
+    bookings.add(current);
+  };
+  current.save();
+  flashText(txt_btn,'Booking created!');
+  renderTime();
+  cancel();
+}
+
+
+function cancel(){
+  id = false; // reset id & num
+  btn_ok.html('BOOK');  // revert buttons
+  btn_no.hide(300);
+}
 
 
 function renderTime(){
+  // reset global vars
+  from = undefined;
+  to = undefined;
+  // clear timelapse
   timelapse.children().removeClass('booked booking').addClass('free');
-
+  // filter bookings by date and room
   var filtered = bookings.where({room_n: room_n, date: date.val()});
-
+  // paint timelapse
   $.each(filtered, function(index, book) {
-     paint(book.get('from'), book.get('to'));
+    var from = parseFloat(book.get('from'));
+    var to = parseFloat(book.get('to'));
+    paint(from, to, 'free', 'booked');
   });
-
-  updateBinds();
-};
+}
 
 
-function paint(s_from, s_to){
+function paint(from, to, oldclass, newclass){
   // parse time strings
-  var from = parseInt(s_from.split(":")[0]);
-  var to = parseInt(s_to.split(":")[0]);
+  from = parseFloat(from);
+  to = parseFloat(to);
   // normalize to timelapse's start time and scale (0.5 hs)
   from = (from - set_from)*2;
-  to = (to - set_from)*2;
-  // adjust for half hours
-  from = parseInt(s_from.split(":")[1]) ? from +1 : from;
-  to = parseInt(s_to.split(":")[1]) ? to : to -1;
+  to = (to - set_from)*2 +0.5;
   // apply class to corresponding divs in timelapse
   for (i = from; i <= to; i++){
-    timelapse.children().eq(i).removeClass('free').addClass('booked');
+    timelapse.children().eq(i).removeClass(oldclass).addClass(newclass);
   };
-};
-
-
-function updateBinds(){
-
-  timelapse.children().off();
-
-  timelapse.children('.free').mousedown(function(event) {
-    $('.booking').removeClass('booking').addClass('free');
-    $(this).removeClass('free').addClass('booking');
-  });
-
-  timelapse.children('.free').mouseover(function(event) {
-    if (pressing) {
-      $(this).removeClass('free').addClass('booking');
-    };
-  });
-
-  timelapse.children().mouseup(function(event) {
-    if ($(this).hasClass('booking')) {
-      flashText(txt_btn, "time updated");
-    };
-  });
-
-};
+}
 
 
 function showText(txt){
@@ -138,50 +178,12 @@ function showText(txt){
       txt_main.html(txt).fadeIn(300);
     });
   });
-};
+}
 
 
 function flashText(el, txt){
   el.finish().html(txt).fadeTo(300, 1).delay(2000).fadeTo('slow', 0);
-};
-
-
-function createBooking(){
-
-  var current = new Booking();
-
-  // use existing id or else assign new one
-  if (id) {
-    current.set({id:id});
-  };
-
-  current.set({
-    site: site.name, // plain object, not a backbone model
-    site_n: sel_site.val(),
-    floor: sel_floor.val(),
-    room: room.name, // plain object, not a backbone model
-    room_n: room_n, // set via mapster or via edit function
-    date: date.val(),
-    from: from.val(),
-    to: to.val(),
-    desc: desc.val(),
-    user: user.get('mail'),
-  });
-
-  bookings.add(current);
-  current.save();
-  flashText(txt_btn,'Booking created!');
-  renderTime();
-  cancel();
-};
-
-
-function cancel(){
-  id = false; // reset id & num
-  btn_ok.html('BOOK');  // revert buttons
-  btn_no.hide(300);
-};
-
+}
 
 
 /********************[ MAPSTER AUTO-RESIZE ]********************/

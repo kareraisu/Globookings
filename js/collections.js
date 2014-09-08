@@ -6,7 +6,6 @@ var Bookings = Backbone.Collection.extend({
   initialize: function(){
     this.on('add', function(model,collection){
       $('#total-bookings').html(collection.length);
-      // console.log('booking removed');
       console.log(model.toJSON());
     });
     this.on('remove', function(model,collection){

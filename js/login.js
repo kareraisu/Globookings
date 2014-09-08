@@ -67,6 +67,7 @@ function login() {
 
 
 function start() {
+
 	$('#login').fadeOut('slow', function() {
 		$('#sites').fadeIn('slow');
 		listSites();
@@ -76,7 +77,13 @@ function start() {
 
 			$('#sites').fadeOut('slow', function(){
 				$('#logged').fadeIn('slow');
-				$('#sidebar').fadeIn('slow');
+				sidebar.children().fadeTo(0, 0);
+				sidebar.fadeIn('slow', function(){
+					// show sidebar panels
+					sidebar.children().each(function(){
+			  		$(this).delay(200 * $(this).index()).fadeTo(400,1);
+					});
+				});
 				$('#main').fadeIn('slow');
 				msg.empty();
 			});

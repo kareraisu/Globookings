@@ -1,8 +1,12 @@
 IMPORTANT
-. booking collision logic
-. visual selection of current booking time in 'timelapse'
-. visualization of other saved bookings info on time selection in 'timelapse'
+. fix update save (backbone url error)
+. fix time render when editing (if room is reselected time appears as booked)
+
 
 CAN WAIT
 . turn panels into tabs and collapse header menu when on xs viewport
 . tweak mapster auto-resize values (buggy when enlarging)
+
+
+MAYBE
+. visualization of other saved bookings info on time selection in 'timelapse'

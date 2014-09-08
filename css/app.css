@@ -20,6 +20,10 @@ header,footer{
   background: green;
 }
 
+footer{
+  margin-top: 10px;
+}
+
 input, select, #room-info{
   height: 2em;
   border: 1px solid black;
@@ -237,13 +241,13 @@ p{
 #banners div{
   position: relative;
   width: 100%;
-  margin: 10px;
+  margin: 1%;
   float: right;
+  transition: width 0.2s;
 }
 
 #banners div:hover{
   width: 105%;
-  height: 105%;
 }
 
 #banners img{

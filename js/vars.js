@@ -3,6 +3,16 @@ var user;// = new User();
 var users = new Users();
 users.fetch();
 
+
+function formatTime(time){
+  var trunctime = Math.floor(time);
+  if (time == trunctime) {
+    return time + ':00';
+  } else {
+    return trunctime + ':30';
+  };
+}
+
 var bookings = new Bookings([]);
 var booklist = new ViewBookings({
   collection: bookings,
@@ -17,21 +27,26 @@ var site_n;
 var floor;
 var room;
 var room_n;
+var from;
+var to;
 
 
 // DOM elements
-var sel_site = $('#site');
-var sel_floor = $('#floor');
+var sidebar = $('#sidebar');
 var timelapse = $('#timelapse');
 var image = $('#img-floor');
 var txt_main = $('#txt-main');
-var btn_ok = $('#btn-ok');
-var btn_no = $('#btn-no');
 var txt_btn = $('#txt-btn');
 
+var sel_site = $('#site');
+var sel_floor = $('#floor');
+
+var btn_ok = $('#btn-ok');
+var btn_no = $('#btn-no');
+
 var date = $('#date');
-var from = $('#from');
-var to = $('#to');
+var show_from = $('#from');
+var show_to = $('#to');
 var desc = $('#desc');
 
 
