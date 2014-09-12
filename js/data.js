@@ -87,9 +87,15 @@ var sp1 = new Floor({
 
 
 var sites = [{
-  name: 'South Park',
-  floors: [sp0, sp1]
-  },{
   name: 'North Park',
   floors: []
-}];
+  },{
+  name: 'Laminar',
+  floors: []
+  },{
+  name: 'Alsina',
+  floors: []
+  },{
+  name: 'South Park',
+  floors: [sp0, sp1]
+},];

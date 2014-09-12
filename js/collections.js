@@ -10,6 +10,7 @@ var Bookings = Backbone.Collection.extend({
     });
     this.on('remove', function(model,collection){
       $('#total-bookings').html(collection.length);
+      renderTime();
       console.log('booking removed');
     });
   }

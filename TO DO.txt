@@ -1,5 +1,4 @@
 IMPORTANT
-. fix update save (backbone url error)
 . fix time render when editing (if room is reselected time appears as booked)
 
 
@@ -10,3 +9,4 @@ CAN WAIT
 
 MAYBE
 . visualization of other saved bookings info on time selection in 'timelapse'
+. google calendar integration

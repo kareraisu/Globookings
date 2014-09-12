@@ -33,7 +33,7 @@ var ViewFloor = Backbone.View.extend({
       showText('NO IMAGE AVAILABLE');
     };
     return this;
-  }
+  },
 });
 
 
@@ -64,8 +64,12 @@ var ViewOptions = Backbone.View.extend({
   },
 
   delete: function(){
-    this.$el.remove();
-    this.model.destroy();
+    if (id === this.model.get('id')){
+      alert("You cannot delete a booking while it's being edited. Please finish editing this booking and try again.")
+    }else{
+      this.$el.remove();
+      this.model.destroy();
+    };
   },
 });
 
@@ -80,9 +84,8 @@ var ViewBook = Backbone.View.extend({
   },
 
   initialize: function(){
-    this.model.on('destroy', function(){ // the handler must be an anon function
-      this.$el.remove()                  // AND the context of 'this' must be
-    }, this)                             // specified in the 3rd parameter for it to work!
+    this.model.on('change', this.render, this); // the context must be specified
+    this.model.on('destroy', this.die, this);   // in the 3rd parameter for it to work!                          
     this.render();
   },
 
@@ -106,7 +109,11 @@ var ViewBook = Backbone.View.extend({
     var options = new ViewOptions({         // create a new options menu for this model
       model: this.model
     });
-  }
+  },
+
+  die: function(){
+    this.$el.remove();
+  },
 });
 
 
@@ -131,5 +138,5 @@ var ViewBookings = Backbone.View.extend({
     });
     this.$el.append(row.render().el); // render the row and append it to the list (table)
     return this;
-  }
+  },
 });

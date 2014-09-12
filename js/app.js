@@ -59,20 +59,15 @@ timelapse.children().mousedown(function(event) {
   if ($(this).hasClass('free') || $(this).hasClass('booking')){
     $('.booking').removeClass('booking').addClass('free');
     $(this).removeClass('free').addClass('booking');
-    from = ($(this).index() / 2) + set_from;
-    show_from.html(formatTime(from));
-  }
+    
+  };
 });
 
 timelapse.children().mouseover(function(event) {
   if ($(this).hasClass('free') && pressing) {
     $(this).removeClass('free').addClass('booking');
-  };
-});
-
-timelapse.children().mouseup(function(event) {
-  if ($(this).hasClass('booking')) {
-    flashText(txt_btn, "time updated");
+    from = ($('.booking').first().index() / 2) + set_from;
+    show_from.html(formatTime(from));
     to = ($('.booking').last().index() / 2) + set_from +0.5;
     show_to.html(formatTime(to));
   };
@@ -100,10 +95,26 @@ function renderFloor() {
 
 
 function createBooking(){
+  var current;
 
-  var current = new Booking();
-  
-  current.set({
+  if (id){
+    current = bookings.get(id);
+    setValues(current);   
+  }else{
+    current = new Booking();
+    setValues(current);
+    bookings.add(current);
+  };
+
+  current.save();
+  flashText(txt_btn,'Booking created!');
+  renderTime();
+  cancel();
+}
+
+
+function setValues(booking){
+  booking.set({
     site: site.name, // plain object, not a backbone model
     site_n: sel_site.val(),
     floor: sel_floor.val(),
@@ -115,25 +126,11 @@ function createBooking(){
     desc: desc.val(),
     user: user.get('mail'),
   });
-
-  // use existing id or else assign new one
-  if (id) {
-    current.set({
-      id: id,
-      collection: bookings,
-    });
-  } else {
-    bookings.add(current);
-  };
-  current.save();
-  flashText(txt_btn,'Booking created!');
-  renderTime();
-  cancel();
 }
 
 
 function cancel(){
-  id = false; // reset id & num
+  id = false; // reset id
   btn_ok.html('BOOK');  // revert buttons
   btn_no.hide(300);
 }

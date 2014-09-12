@@ -64,7 +64,6 @@ var User = Backbone.Model.extend({
   defaults: {
     mail:'mail',
     pass:'password',
-    active: false
   },
 
   initialize: function(){

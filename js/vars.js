@@ -1,9 +1,8 @@
-// model and collection instances
-var user;// = new User();
+var user;
 var users = new Users();
 users.fetch();
 
-
+// this needs to be here or else the browser complains... ¬¬
 function formatTime(time){
   var trunctime = Math.floor(time);
   if (time == trunctime) {
@@ -67,6 +66,7 @@ var mapoptions = {
   // important stuff
   scaleMap: true,
   singleSelect: true,
+  // the allmighty function
   onStateChange: function (e) {
     if (e.state == 'select') {
       if (e.selected) {
@@ -76,7 +76,9 @@ var mapoptions = {
         $('#room-info').html('Capacity: ' + room.capacity + '<br>' + room.extra);
         renderTime();
       } else {
-        timelapse.children().removeClass('booked');
+        timelapse.children().removeClass('free booked booking');
+        show_from.empty();
+        show_to.empty();
       };
     };
   }
